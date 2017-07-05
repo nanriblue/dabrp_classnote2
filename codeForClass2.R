@@ -27,10 +27,10 @@ dbListTables(con)
 
 # get table data
 dbReadTable(con, "mtcars")
-
+identical(dbReadTable(con, "mtcars"), mtcars) #두개가 동일한 지 확인 false가 나오는 건 rowname 차이름을 구분값으로 저장해서
 
 # remove
-dbRemoveTable(con,"tran")
+dbRemoveTable(con,"mtcars")
 dbListTables(con)
 
 
@@ -62,7 +62,7 @@ tran<-read_csv("./recomen/tran.csv")
 ## head
 
 chennel
-competitor
+competitor #월단위로 끝날 경우 01을 붙여서 날짜로 변환
 customer
 item
 membership
@@ -78,7 +78,7 @@ item
 ## tail
 
 tail(chennel)
-tail(competitor)
+tail(competitor) 
 tail(customer)
 tail(item)
 tail(membership)
@@ -92,7 +92,7 @@ summary(competitor)
 summary(customer)
 summary(item)
 summary(membership)
-summary(tran)
+summary(tran) #receiptNum 같은 고유번호와 같은 값은 앞에 0을 붙여 캐릭터로 바꿔줌
 
 
 ## get data structure
@@ -107,12 +107,11 @@ str(tran)
 
 # 
 
-
 ## set Mysql with google cloud
 
 # user<-"root"
-# pw<-"XXXXXXXXXXXXXXXX"
-# host<-'XXX.XXX.XXX.XXX'
+# pw<-"XXXXXXXXXXX"
+# host<-'XXXXXXXXXXXXX'
 
 # save(user,pw,host,file ="./gsql.RData")
 
@@ -125,8 +124,8 @@ con <- dbConnect(MySQL(),
                  host = host,
                  dbname = "recom")
 dbListTables(conn = con)
-dbWriteTable(conn = con, name = 'tran', value = "./recomen/tran.csv")
-dbReadTable(conn = con, name = "Test")
+dbWriteTable(conn = con, name = 'chennel', value = "./recomen/chennel.csv")
+dbReadTable(conn = con, name = "chennel")
 
 ## for bigquery query
 
