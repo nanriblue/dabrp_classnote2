@@ -82,8 +82,8 @@ arrange(df, desc(x))
 
 # select like select
 select(flights, year, month, day)
-select(flights, year:day)
-select(flights, -(year:day))
+select(flights, year:day) #:어디에서 어디까지 자주 쓰임
+select(flights, -(year:day)) 
 
 rename(flights, tail_num = tailnum)
 select(flights, time_hour, air_time, everything())
@@ -105,21 +105,21 @@ mutate(flights_sml,
 mutate(flights_sml,
        gain = arr_delay - dep_delay,
        hours = air_time / 60,
-       gain_per_hour = gain / hours
+       gain_per_hour = gain / hours  #계산한 컬럼추가
 )
 
 # only get new columns
 transmute(flights,
           gain = arr_delay - dep_delay,
           hours = air_time / 60,
-          gain_per_hour = gain / hours
+          gain_per_hour = gain / hours #계산한 컬럼만 남김
 )
 
 # extra functions
 
 (x <- 1:10)
-lag(x)
-lead(x)
+lag(x) # 행당김
+lead(x) # 행밀어냄
 
 # summarise what you want to get
 summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
@@ -179,11 +179,11 @@ table3 %>%
 
 # separate columns with class set
 table3 %>% 
-  separate(rate, into = c("cases", "population"), convert = TRUE)
+  separate(rate, into = c("cases", "population"), convert = TRUE) #숫자형으로 바꿔줌
 
 # separate int columns
 table3 %>% 
-  separate(year, into = c("century", "year"), sep = 2)
+  separate(year, into = c("century", "year"), sep = 2) #
 
 # unite two columns to new column
 table5 %>% 
@@ -209,7 +209,7 @@ flights2 %>%
 # left join with dplyr without join function
 flights2 %>%
   select(-origin, -dest) %>% 
-  mutate(name = airlines$name[match(carrier, airlines$carrier)])
+  mutate(name = airlines$name[match(carrier, airlines$carrier)]) 
 
 # join without key
 flights2 %>% 
@@ -262,9 +262,9 @@ library(data.table)
 # download.file(url,destfile = "./data/flights14.csv")
 
 # read data
-system.time(flights <- read.csv("./data/flights14.csv"))
-system.time(flights <- read_csv("./data/flights14.csv"))
-system.time(flights <- fread("./data/flights14.csv"))
+system.time(flights <- read.csv("./data/flights14.csv")) #데이터 프레임
+system.time(flights <- read_csv("./data/flights14.csv")) #티블로 나옴
+system.time(flights <- fread("./data/flights14.csv")) #데이터테이블로 나옴
 flights
 dim(flights)
 
@@ -302,11 +302,11 @@ flights[origin == "JFK" & month == 6L, length(dest)]
 flights[, .(.N), by = .(origin)]
 
 # make count table with condition
-flights[carrier == "AA", .N, by = origin]
+flights[carrier == "AA", .N, by = origin] #유용
 
 # make count table with condition and group by
 flights[carrier == "AA", .N, by = .(origin,dest)]
 
 # add options
-flights[carrier == "AA", .N, by = .(origin, dest)][order(origin, -dest)][1:10,]
+flights[carrier == "AA", .N, by = .(origin, dest)][order(origin, -dest)][1:10,] #유용
 
