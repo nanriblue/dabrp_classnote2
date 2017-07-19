@@ -6,7 +6,6 @@ library(data.table)
 ## 과제 1 데이터 준비
 
 item<-fread("./recomen/item.csv", encoding = "UTF-8")
-
 ## 과제 1.1
 
 item %>% 
@@ -30,7 +29,7 @@ item[grep("소스$",cate_3_name),cate_3_name] %>% unique
 st1 <- strsplit(item$cate_3_name,"/") %>%
   unlist %>%
   unique %>%
-  .[order(.)]
+  .[order(.)] #.은 파이프연산자 전체를 나타냄
 
 st1 %>%
   length
