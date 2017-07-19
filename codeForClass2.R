@@ -3,7 +3,7 @@
 ## devtools::로 devtools내의 함수를 직접 사용
 
 if (!require(devtools)) install.packages("devtools") 
-if (!require(DBI)) devtools::install_github("rstats-db/DBI")
+if (!require(DBI)) devtools::install_github("rstats-db/DBI")  # different from CRAN repository 
 if (!require(RSQLite)) devtools::install_github("rstats-db/RSQLite")
 if (!require(RMySQL)) devtools::install_github("rstats-db/RMySQL")
 if (!require(bigrquery)) devtools::install_github("rstats-db/bigrquery")
@@ -35,7 +35,11 @@ identical(dbReadTable(con,"mtcars"),mtcars) ##That two files are same -> "True"
 
 # get table data
 dbReadTable(con, "mtcars")
+<<<<<<< HEAD
 identical(dbReadTable(con, "mtcars"), mtcars) #두개가 동일한 지 확인 false가 나오는 건 rowname 차이름을 구분값으로 저장해서
+=======
+identical(dbReadTable(con, "mtcars"),mtcars)
+>>>>>>> d4ecd733911c2c22e6cd66fa2928a47e6d355ac7
 
 # remove
 dbRemoveTable(con,"mtcars")
@@ -109,6 +113,9 @@ summary(tran) #receiptNum 같은 고유번호와 같은 값은 앞에 0을 붙�
 ## get data structure
 
 str(chennel)
+chennel2 <- read.csv("./recomen/chennel.csv")
+str(chennel2)
+rm(chennel2)
 str(competitor)
 str(customer)
 str(item)
@@ -128,11 +135,20 @@ str(tran)
 
 # user<-"root"
 <<<<<<< HEAD
+<<<<<<< HEAD
 # pw<-"XXXXXXXXXXX"
 # host<-'XXXXXXXXXXXXX'
 
 # save(user,pw,host,file ="./gsql.RData")
 =======
+=======
+# pw<-""
+# host<-''
+# rm(pw)
+# rm(host)
+# save(user,pw,host,file ="./gsql.RData")
+
+>>>>>>> d4ecd733911c2c22e6cd66fa2928a47e6d355ac7
 # pw<-"XXXXXXXXXXXXXXXXX"
 # host<-'XXX.XXX.XXX.XXX'
 #rm(pw)
@@ -147,7 +163,7 @@ con <- dbConnect(MySQL(),
                  user = user,
                  password = pw,
                  host = host,
-                 dbname = "recom")
+                 dbname = "fctestp")
 dbListTables(conn = con)
 dbWriteTable(conn = con, name = 'chennel', value = "./recomen/chennel.csv")
 <<<<<<< HEAD
